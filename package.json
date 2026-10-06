@@ -1,0 +1,20 @@
+{
+  "name": "pathpilot-ai",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Network change safety gate for human and AI proposed changes",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test",
+    "check": "node --check server.js && node --check public/app.js && node --check public/lab.js && node --check public/core/proposal.js && node --check src/ai-proposal.js && node --check cli.js && node --test && node scripts/export-emulation-reports.js --check",
+    "verify:blocked": "node cli.js verify --lab public/labs/frr/lab.json --baseline public/labs/frr/baseline --candidate public/labs/frr/candidates/route-leak --provenance ai",
+    "verify:safe": "node cli.js verify --lab public/labs/frr/lab.json --baseline public/labs/frr/baseline --candidate public/labs/frr/candidates/safe-reroute --provenance ai",
+    "proposal:blocked": "node cli.js verify --lab public/labs/frr/lab.json --baseline public/labs/frr/baseline --proposal public/labs/frr/proposals/route-leak.json --provenance ai",
+    "proposal:safe": "node cli.js verify --lab public/labs/frr/lab.json --baseline public/labs/frr/baseline --proposal public/labs/frr/proposals/safe-reroute.json --provenance ai",
+    "emulation:expected": "node scripts/export-emulation-reports.js",
+    "emulation:prepare": "node scripts/prepare-containerlab.js"
+  }
+}

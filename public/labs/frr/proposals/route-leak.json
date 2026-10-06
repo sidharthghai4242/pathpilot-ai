@@ -1,0 +1,13 @@
+{
+  "request": "Prefer an alternate next hop for application traffic from the WAN edge.",
+  "operations": [
+    {
+      "type": "addStaticRoute",
+      "node": "edge",
+      "prefix": "10.20.0.0/24",
+      "gateway": "172.16.0.17",
+      "distance": 5,
+      "reason": "Attempt to prefer internet transit for application traffic."
+    }
+  ]
+}

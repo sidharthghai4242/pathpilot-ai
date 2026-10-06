@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="PathPilot AI is an interactive network change assurance lab with packet-path simulation and grounded AI review.">
+  <title>PathPilot AI | Network Change Assurance</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./failure.css">
+  <link rel="stylesheet" href="./lab.css">
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./lab.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">P<span>·</span></div><div><strong>PathPilot</strong><small>NETWORK ASSURANCE LAB</small></div></div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav aria-label="Primary navigation">
+        <a class="nav-link active" href="#overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-link" href="#topology"><span class="nav-icon">⌁</span> Network topology</a>
+        <a class="nav-link" href="#intents"><span class="nav-icon">◇</span> Intent checks</a>
+        <a class="nav-link" href="#config-lab"><span class="nav-icon">{ }</span> Config lab</a>
+        <a class="nav-link" href="#ai-review"><span class="nav-icon">✦</span> AI review</a>
+      </nav>
+      <div class="sidebar-note"><span class="pulse"></span><div><strong>Simulation only</strong><p>Synthetic topology. No device access or live scanning.</p></div></div>
+      <div class="sidebar-footer">OPEN-SOURCE ENGINEERING PROJECT<br>v2.0 · IPv4 / L3</div>
+    </aside>
+
+    <main id="overview" class="main">
+      <header class="topbar"><div class="breadcrumbs">Workspace <span>/</span> Meridian Commerce <span>/</span> Change review</div><div class="topbar-right"><span class="environment">● DEMO ENVIRONMENT</span><span class="avatar" aria-label="Network operator">NO</span></div></header>
+      <div class="content">
+        <section class="hero"><div><div class="eyebrow">PRE-CHANGE VERIFICATION <span>•</span> NETWORK ENGINEERING</div><h1>Know the impact <em>before</em> the change.</h1><p>Review network changes against connectivity intents and inspect every forwarding decision. The config lab below imports a supported FRRouting static IPv4 subset and gates human or AI route proposals.</p></div><div class="hero-graphic" aria-hidden="true"><div class="radar radar-one"></div><div class="radar radar-two"></div><div class="radar radar-three"></div><div class="radar-center">⌁</div><span class="radar-dot dot-one"></span><span class="radar-dot dot-two"></span><span class="radar-dot dot-three"></span></div></section>
+
+        <section class="section scenario-section" aria-labelledby="change-heading"><div class="section-heading"><div><div class="kicker">01 / CHANGE REQUEST</div><h2 id="change-heading">Choose a proposed change</h2></div><span class="section-detail">4 synthetic scenarios</span></div><div id="scenario-list" class="scenario-grid" role="group" aria-label="Change scenarios"></div></section>
+
+        <section class="metrics" aria-label="Analysis summary"><div class="metric"><span class="metric-label">CHANGE VERDICT</span><strong id="verdict-value">—</strong><small id="verdict-note">Awaiting analysis</small></div><div class="metric"><span class="metric-label">INTENTS VALIDATED</span><strong id="checks-value">—</strong><small>Reachability and isolation</small></div><div class="metric"><span class="metric-label">NEW REGRESSIONS</span><strong id="regressions-value">—</strong><small>Compared with baseline</small></div><div class="metric"><span class="metric-label">CRITICAL VIOLATIONS</span><strong id="critical-value">—</strong><small>Highest-priority intents</small></div></section>
+
+        <div class="two-column"><section id="topology" class="panel topology-panel" aria-labelledby="topology-heading"><div class="panel-heading"><div><div class="kicker">02 / FORWARDING MODEL</div><h2 id="topology-heading">Network topology</h2></div><div class="legend"><span><i class="legend-line"></i> Active</span><span><i class="legend-line off"></i> Down</span><span><i class="legend-line path"></i> Selected path</span></div></div><div class="graph-wrap"><svg id="network-graph" viewBox="0 0 800 410" role="img" aria-label="Synthetic network topology"></svg></div><div class="topology-footer"><span>7 nodes · 7 links</span><span>Selected flow: <strong id="selected-flow-label">—</strong></span></div></section>
+
+        <section class="panel trace-panel" aria-labelledby="trace-heading"><div class="panel-heading"><div><div class="kicker">03 / PACKET WALK</div><h2 id="trace-heading">Forwarding trace</h2></div><span id="trace-status" class="trace-status">—</span></div><div class="trace-intro"><strong id="trace-title">Select an intent</strong><p id="trace-finding">Packet decisions appear here.</p></div><ol id="trace-steps" class="trace-steps"></ol><div class="trace-stats"><div>LATENCY <strong id="trace-latency">—</strong></div><div>BOTTLENECK <strong id="trace-capacity">—</strong></div></div></section></div>
+
+        <section id="intents" class="panel intents-panel" aria-labelledby="intents-heading"><div class="panel-heading"><div><div class="kicker">04 / POLICY AS CODE</div><h2 id="intents-heading">Business intents</h2></div><span class="section-detail">Click a row to inspect its path</span></div><div class="table-wrap"><table><thead><tr><th>INTENT</th><th>EXPECTED</th><th>BASELINE</th><th>AFTER CHANGE</th><th>FINDING</th></tr></thead><tbody id="intent-rows"></tbody></table></div></section>
+
+        <section class="panel failure-panel" aria-labelledby="failure-heading"><div class="panel-heading"><div><div class="kicker">05 / RESILIENCE</div><h2 id="failure-heading">Single-link failure impact</h2></div><span class="section-detail">N-1 checks on the candidate network</span></div><p>Each active link is failed once. Impact counts show intents that pass now but fail after that single link goes down.</p><div id="failure-list" class="failure-grid"></div></section>
+
+        <section id="config-lab" class="panel config-panel" aria-labelledby="config-heading">
+          <div class="panel-heading"><div><div class="kicker">06 / CONFIGURATION SAFETY GATE</div><h2 id="config-heading">FRRouting snapshot lab</h2></div><span class="section-detail">Static IPv4 subset · synthetic lab</span></div>
+          <p class="config-intro">Propose an adjacent static route. The same parser and verification gate run here, in the CLI, and in CI. A passing model returns <strong>REVIEW</strong>, never deployment approval.</p>
+          <div class="config-actions"><button id="lab-load-unsafe" type="button">Load route loop</button><button id="lab-load-safe" type="button">Load backup route</button></div>
+          <div class="config-columns"><div><label for="lab-proposal">Route proposal JSON</label><textarea id="lab-proposal" spellcheck="false" aria-describedby="lab-help"></textarea><small id="lab-help">Edit the operation, then run the gate. Unsupported changes fail validation.</small><button id="lab-run" class="ai-button" type="button">Run safety gate ↗</button></div><div><div class="config-result-head"><span>DETERMINISTIC RESULT</span><strong id="lab-decision">AWAITING INPUT</strong></div><p id="lab-summary" aria-live="polite">Loading the FRRouting example…</p><pre id="lab-diff" class="config-code">—</pre><div id="lab-findings" class="config-findings"></div></div></div>
+          <div class="config-ai"><label for="lab-ai-request">Optional AI route proposal</label><div class="config-ai-row"><input id="lab-ai-request" maxlength="500" value="Prefer the backup link to the application from the WAN edge" aria-label="Request an AI route proposal"><button id="lab-ai-button" type="button">Ask AI, then verify</button></div><small>Requires the optional server and a server-side API key. The model proposes a structured route; the deterministic gate decides and never applies it.</small></div>
+        </section>
+
+        <section id="ai-review" class="ai-panel"><div class="ai-icon">✦</div><div class="ai-copy"><div class="kicker">07 / HUMAN-IN-THE-LOOP</div><h2>AI-assisted change review</h2><p>When a server-side model is configured, it writes a short review using the exact intent IDs and packet traces above. The simulator alone decides the verdict.</p><div id="ai-output" class="ai-output" aria-live="polite">Run a scenario, then request a grounded explanation. An API key is needed for live AI generation.</div></div><button id="ai-button" class="ai-button" type="button">Generate AI review <span>↗</span></button></section>
+
+        <footer class="footer"><div>PathPilot AI <span>·</span> Network change assurance lab</div><div>All data is synthetic <span>·</span> No live network changes</div></footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

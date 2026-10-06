@@ -1,0 +1,106 @@
+{
+  "generatedBy": "PathPilot deterministic model",
+  "scenario": "route-leak",
+  "labSha256": "69baf8915d9b56a4342dd75c05b1f7898b525725e6320f6b63b70cd5b1e588d8",
+  "configSha256": {
+    "branch": "1a485abef8bbc0d7b33f3a4fc4e702bccd115a4cd75ae13ab734788dfbb2e7ac",
+    "edge": "b2193cd7a6d71b7d47a4e308fcfcf45422ffd93cb3603ea6d151c69cd9009948",
+    "core": "f7743a3605a494c7d253d1a8052ea9d92c1c8d10eb7928869bd999a60e9e2167",
+    "app": "ef3277f0533f9218a5d3e6cba0f628d4b990e00151a571fa002468431dc84dd4",
+    "db": "ee6555fbc6332f59e493c8195cf381168062446f0d045950d512182663ebcd3d",
+    "internet": "1864be6137683ab8121a1accb63f94302c3afce8942897b55c561f38d297f67a"
+  },
+  "predicted": {
+    "decision": "BLOCK",
+    "regressions": [
+      "LAB-01",
+      "LAB-03"
+    ],
+    "intents": [
+      {
+        "id": "LAB-01",
+        "expectation": "allow",
+        "baselinePass": true,
+        "candidatePass": false,
+        "candidateStatus": "LOOP",
+        "path": [
+          "branch",
+          "edge",
+          "internet",
+          "edge"
+        ],
+        "returnStatus": "DELIVERED",
+        "returnPath": [
+          "app",
+          "core",
+          "edge",
+          "branch"
+        ]
+      },
+      {
+        "id": "LAB-02",
+        "expectation": "allow",
+        "baselinePass": true,
+        "candidatePass": true,
+        "candidateStatus": "DELIVERED",
+        "path": [
+          "app",
+          "core",
+          "db"
+        ],
+        "returnStatus": "DELIVERED",
+        "returnPath": [
+          "db",
+          "core",
+          "app"
+        ]
+      },
+      {
+        "id": "LAB-03",
+        "expectation": "allow",
+        "baselinePass": true,
+        "candidatePass": false,
+        "candidateStatus": "LOOP",
+        "path": [
+          "internet",
+          "edge",
+          "internet"
+        ],
+        "returnStatus": "DELIVERED",
+        "returnPath": [
+          "app",
+          "core",
+          "edge",
+          "internet"
+        ]
+      },
+      {
+        "id": "LAB-04",
+        "expectation": "deny",
+        "baselinePass": true,
+        "candidatePass": true,
+        "candidateStatus": "DENIED",
+        "path": [
+          "internet",
+          "edge"
+        ],
+        "returnStatus": null,
+        "returnPath": null
+      },
+      {
+        "id": "LAB-05",
+        "expectation": "deny",
+        "baselinePass": true,
+        "candidatePass": true,
+        "candidateStatus": "DENIED",
+        "path": [
+          "branch",
+          "edge",
+          "core"
+        ],
+        "returnStatus": null,
+        "returnPath": null
+      }
+    ]
+  }
+}

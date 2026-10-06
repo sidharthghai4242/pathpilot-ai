@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "observedAtUtc": "2026-10-06T09:34:00.197191+00:00",
+  "kernel": "6.6.87.2-microsoft-standard-WSL2",
+  "scope": "Linux network namespaces; static routes independently parsed from FRR fixtures into kernel FIB; ACLs and FRR daemons not included",
+  "comparison": "PASS",
+  "scenarios": [
+    {
+      "scenario": "baseline",
+      "modelDecision": "REVIEW",
+      "observations": [
+        {
+          "id": "LAB-01",
+          "forward": {
+            "status": "DELIVERED",
+            "path": [
+              "branch",
+              "edge",
+              "core",
+              "app"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "edge",
+              "branch"
+            ]
+          },
+          "icmp": {
+            "delivered": true,
+            "summary": "1 packets transmitted, 1 received, 0% packet loss, time 0ms"
+          }
+        },
+        {
+          "id": "LAB-02",
+          "forward": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "db"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "db",
+              "core",
+              "app"
+            ]
+          },
+          "icmp": {
+            "delivered": true,
+            "summary": "1 packets transmitted, 1 received, 0% packet loss, time 0ms"
+          }
+        },
+        {
+          "id": "LAB-03",
+          "forward": {
+            "status": "DELIVERED",
+            "path": [
+              "internet",
+              "edge",
+              "core",
+              "app"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "edge",
+              "internet"
+            ]
+          },
+          "icmp": {
+            "delivered": true,
+            "summary": "1 packets transmitted, 1 received, 0% packet loss, time 0ms"
+          }
+        }
+      ],
+      "mismatches": []
+    },
+    {
+      "scenario": "route-leak",
+      "modelDecision": "BLOCK",
+      "observations": [
+        {
+          "id": "LAB-01",
+          "forward": {
+            "status": "LOOP",
+            "path": [
+              "branch",
+              "edge",
+              "internet",
+              "edge"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "edge",
+              "branch"
+            ]
+          },
+          "icmp": {
+            "delivered": false,
+            "summary": "1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms"
+          }
+        },
+        {
+          "id": "LAB-02",
+          "forward": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "db"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "db",
+              "core",
+              "app"
+            ]
+          },
+          "icmp": {
+            "delivered": true,
+            "summary": "1 packets transmitted, 1 received, 0% packet loss, time 0ms"
+          }
+        },
+        {
+          "id": "LAB-03",
+          "forward": {
+            "status": "LOOP",
+            "path": [
+              "internet",
+              "edge",
+              "internet"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "edge",
+              "internet"
+            ]
+          },
+          "icmp": {
+            "delivered": false,
+            "summary": "1 packets transmitted, 0 received, 100% packet loss, time 0ms"
+          }
+        }
+      ],
+      "mismatches": []
+    },
+    {
+      "scenario": "safe-reroute",
+      "modelDecision": "REVIEW",
+      "observations": [
+        {
+          "id": "LAB-01",
+          "forward": {
+            "status": "DELIVERED",
+            "path": [
+              "branch",
+              "edge",
+              "app"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "edge",
+              "branch"
+            ]
+          },
+          "icmp": {
+            "delivered": true,
+            "summary": "1 packets transmitted, 1 received, 0% packet loss, time 0ms"
+          }
+        },
+        {
+          "id": "LAB-02",
+          "forward": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "db"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "db",
+              "core",
+              "app"
+            ]
+          },
+          "icmp": {
+            "delivered": true,
+            "summary": "1 packets transmitted, 1 received, 0% packet loss, time 0ms"
+          }
+        },
+        {
+          "id": "LAB-03",
+          "forward": {
+            "status": "DELIVERED",
+            "path": [
+              "internet",
+              "edge",
+              "app"
+            ]
+          },
+          "returnRoute": {
+            "status": "DELIVERED",
+            "path": [
+              "app",
+              "core",
+              "edge",
+              "internet"
+            ]
+          },
+          "icmp": {
+            "delivered": true,
+            "summary": "1 packets transmitted, 1 received, 0% packet loss, time 0ms"
+          }
+        }
+      ],
+      "mismatches": []
+    }
+  ]
+}

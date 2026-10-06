@@ -1,0 +1,30 @@
+{
+  "name": "Meridian lab - FRRouting static IPv4 snapshots",
+  "nodes": [
+    { "id": "branch", "label": "Branch host", "role": "Client", "zone": "Branch", "ip": "10.10.1.10", "x": 90, "y": 160 },
+    { "id": "edge", "label": "WAN edge", "role": "Router", "zone": "DMZ", "ip": "10.10.1.1", "x": 285, "y": 160, "acls": [
+      { "id": "deny-external-db", "source": "203.0.113.0/24", "destination": "10.30.0.0/24", "protocol": "tcp", "port": 5432, "action": "deny", "enabled": true }
+    ] },
+    { "id": "core", "label": "Core router", "role": "Router", "zone": "Core", "ip": "10.0.0.1", "x": 495, "y": 160, "acls": [
+      { "id": "deny-branch-db", "source": "10.10.1.0/24", "destination": "10.30.0.0/24", "protocol": "tcp", "port": 5432, "action": "deny", "enabled": true }
+    ] },
+    { "id": "app", "label": "Application", "role": "Service", "zone": "Application", "ip": "10.20.0.10", "x": 710, "y": 75 },
+    { "id": "db", "label": "Database", "role": "Data", "zone": "Data", "ip": "10.30.0.10", "x": 710, "y": 260 },
+    { "id": "internet", "label": "Internet transit", "role": "External", "zone": "External", "ip": "203.0.113.1", "x": 285, "y": 335 }
+  ],
+  "links": [
+    { "id": "branch-edge", "a": { "node": "branch", "iface": "eth1", "ip": "172.16.0.1/30" }, "b": { "node": "edge", "iface": "eth1", "ip": "172.16.0.2/30" }, "latencyMs": 5, "capacityMbps": 100, "up": true },
+    { "id": "edge-core", "a": { "node": "edge", "iface": "eth2", "ip": "172.16.0.5/30" }, "b": { "node": "core", "iface": "eth1", "ip": "172.16.0.6/30" }, "latencyMs": 3, "capacityMbps": 1000, "up": true },
+    { "id": "core-app", "a": { "node": "core", "iface": "eth2", "ip": "172.16.0.9/30" }, "b": { "node": "app", "iface": "eth1", "ip": "172.16.0.10/30" }, "latencyMs": 4, "capacityMbps": 1000, "up": true },
+    { "id": "core-db", "a": { "node": "core", "iface": "eth3", "ip": "172.16.0.13/30" }, "b": { "node": "db", "iface": "eth1", "ip": "172.16.0.14/30" }, "latencyMs": 2, "capacityMbps": 1000, "up": true },
+    { "id": "internet-edge", "a": { "node": "internet", "iface": "eth1", "ip": "172.16.0.17/30" }, "b": { "node": "edge", "iface": "eth3", "ip": "172.16.0.18/30" }, "latencyMs": 20, "capacityMbps": 500, "up": true },
+    { "id": "edge-app-backup", "a": { "node": "edge", "iface": "eth4", "ip": "172.16.0.21/30" }, "b": { "node": "app", "iface": "eth2", "ip": "172.16.0.22/30" }, "latencyMs": 9, "capacityMbps": 200, "up": true }
+  ],
+  "intents": [
+    { "id": "LAB-01", "name": "Branch reaches checkout API", "source": "branch", "destination": "app", "protocol": "tcp", "port": 443, "expectation": "allow", "bidirectional": true, "maxLatencyMs": 15, "tier": "critical" },
+    { "id": "LAB-02", "name": "Application reaches database", "source": "app", "destination": "db", "protocol": "tcp", "port": 5432, "expectation": "allow", "bidirectional": true, "maxLatencyMs": 10, "tier": "critical" },
+    { "id": "LAB-03", "name": "Internet reaches checkout API", "source": "internet", "destination": "app", "protocol": "tcp", "port": 443, "expectation": "allow", "bidirectional": true, "maxLatencyMs": 40, "tier": "standard" },
+    { "id": "LAB-04", "name": "Internet cannot query database", "source": "internet", "destination": "db", "protocol": "tcp", "port": 5432, "expectation": "deny", "tier": "critical" },
+    { "id": "LAB-05", "name": "Branch cannot query database directly", "source": "branch", "destination": "db", "protocol": "tcp", "port": 5432, "expectation": "deny", "tier": "standard" }
+  ]
+}

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="title desc">
+  <title id="title">PathPilot AI synthetic network</title>
+  <desc id="desc">Branch and partner connect through edge and core devices to an application and database.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10243a"/><stop offset="1" stop-color="#0d1929"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="960" height="430" rx="22" fill="url(#bg)"/>
+  <text x="44" y="50" fill="#74ddd7" font-family="Arial,sans-serif" font-size="13" letter-spacing="3">PATHPILOT AI / NETWORK CHANGE ASSURANCE</text>
+  <text x="44" y="85" fill="#ecf6fb" font-family="Arial,sans-serif" font-size="29" font-weight="bold">Trace the path. Verify the intent.</text>
+  <g fill="none" stroke="#2a455b" stroke-width="1" opacity=".45"><path d="M0 120H960M0 180H960M0 240H960M0 300H960M0 360H960M100 100V430M200 100V430M300 100V430M400 100V430M500 100V430M600 100V430M700 100V430M800 100V430M900 100V430"/></g>
+  <path d="M100 220H290H490L750 155" fill="none" stroke="#6ce3d4" stroke-width="5" filter="url(#glow)"/>
+  <path d="M490 220L750 300M100 340H290V220M290 340V220" fill="none" stroke="#466b86" stroke-width="3"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <g transform="translate(100 220)"><circle r="28" fill="#183b4b" stroke="#8de5dd" stroke-width="2"/><text y="7" fill="#d9f9f7" font-size="25">⌁</text><text y="52" fill="#e8f3fa" font-size="15" font-weight="bold">Branch</text></g>
+    <g transform="translate(290 220)"><circle r="28" fill="#183b4b" stroke="#8de5dd" stroke-width="2"/><text y="7" fill="#d9f9f7" font-size="25">⌁</text><text y="52" fill="#e8f3fa" font-size="15" font-weight="bold">WAN edge</text></g>
+    <g transform="translate(490 220)"><circle r="28" fill="#183b4b" stroke="#8de5dd" stroke-width="2"/><text y="7" fill="#d9f9f7" font-size="25">⌁</text><text y="52" fill="#e8f3fa" font-size="15" font-weight="bold">Core</text></g>
+    <g transform="translate(750 155)"><circle r="28" fill="#185058" stroke="#8de5dd" stroke-width="2"/><text y="7" fill="#d9f9f7" font-size="23">◈</text><text y="52" fill="#e8f3fa" font-size="15" font-weight="bold">Application</text></g>
+    <g transform="translate(750 300)"><circle r="28" fill="#3b3857" stroke="#bea9ea" stroke-width="2"/><text y="7" fill="#e6dafb" font-size="24">▤</text><text y="52" fill="#e8f3fa" font-size="15" font-weight="bold">Database</text></g>
+    <g transform="translate(290 340)"><circle r="23" fill="#263a57" stroke="#899cc5" stroke-width="2"/><text y="6" fill="#d9e6fa" font-size="21">◎</text><text y="47" fill="#abbdd2" font-size="13">Internet</text></g>
+    <g transform="translate(100 340)"><circle r="23" fill="#263a57" stroke="#899cc5" stroke-width="2"/><text y="6" fill="#d9e6fa" font-size="21">◎</text><text y="47" fill="#abbdd2" font-size="13">Partner</text></g>
+  </g>
+</svg>

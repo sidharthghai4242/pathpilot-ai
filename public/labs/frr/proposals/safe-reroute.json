@@ -1,0 +1,13 @@
+{
+  "request": "Route application traffic over the directly connected backup link.",
+  "operations": [
+    {
+      "type": "addStaticRoute",
+      "node": "edge",
+      "prefix": "10.20.0.0/24",
+      "gateway": "172.16.0.22",
+      "distance": 5,
+      "reason": "Prefer the adjacent backup application link during review."
+    }
+  ]
+}
